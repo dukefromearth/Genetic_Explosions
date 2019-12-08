@@ -71,7 +71,7 @@ genetic.fitness = function (entity) {
             let distY = ent.y - t.y;
             let dist = Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2));
             if (dist < closest) closest = dist;     
-            if (closest <= 3) fitness -= 10;
+            if (closest <= 5) fitness -= 10;
         }
         fitness += closest;
     }
@@ -108,8 +108,8 @@ genetic.notification = function (pop, generation, stats, isFinished) {
     // 	solution.push("<span style=\"" + style + "\">" + value[i] + "</span>");
     // }
     let canvas = this.userData["canvas"];
-    canvas.clear();
-    canvas.draw(value, 'red');
+    // canvas.clear();
+    // canvas.draw(value, 'atom', 14);
     let scores = "";
     for(let i = 0; i < pop.length ; i++){
         scores += pop[i].fitness.toPrecision(5) + ' '

@@ -24,6 +24,9 @@
             font-size: 16px;
         }
 
+        img {
+            display: none;
+        }
     </style>
 </head>
 
@@ -33,6 +36,8 @@
     <button id="clear">Clear</button>
     <button id="run">Run Game of Life</button>
     <button id="stop">Stop</button>
+    <img id="atom" src="/assets/atom.png" class="image">
+    <img id="target" src="/assets/target.png" class="image">
     <table id="results">
         <thead>
             <tr>
@@ -72,12 +77,12 @@
             if (run_trigger && counter < 100) {
                 canvas.clear();
                 gol.update();
-                canvas.draw(gol.bomb_locations, 'yellow');
-                canvas.draw(target, 'green')
+                canvas.draw(target, 'target', 30);
+                canvas.draw(gol.bomb_locations, 'atom', 14);
             } else {
                 canvas.clear();
-                canvas.draw(best, 'red');
-                canvas.draw(target, 'green');
+                canvas.draw(target, 'target', 30);
+                canvas.draw(best, 'atom', 14);
             }
         }, 1000 / 30);
 
@@ -103,7 +108,7 @@
             genetic.isFinished = true;
             $("#results tbody").html("");
             var config = {
-                "iterations": 100
+                "iterations": 40
                 , "size": 30
                 , "crossover": 0.3
                 , "mutation": 0.3

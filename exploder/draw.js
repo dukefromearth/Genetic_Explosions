@@ -7,11 +7,13 @@ context.fillRect(0,0,canvas.width,canvas.height);
 
 function myCanvas(){
     this.value = 0;
-    this.draw = function(elements, color){
+    this.draw = function(elements, image, size){
         for (let id in elements){
             let e = elements[id];
-            context.fillStyle = color;
-            context.fillRect(e.x*10 - 1, e.y*10 - 1, 9,9);
+            let img = document.getElementById(image);
+            context.drawImage(img, e.x*10 - size/2, e.y*10 - size/2, size, size )
+            // context.fillStyle = color;
+            // context.fillRect(e.x*10 - 1, e.y*10 - 1, 9,9);
         }
     }
     this.clear = function() {
