@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Genetic Exploder</title>
+    <style>
+        canvas {
+            padding-left: 0;
+            padding-right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        button {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <button id="solve">Solve</button>
+    <button id="clear">Clear</button>
+    <button id="run">Run Game of Life</button>
+    <button id="stop">Stop</button>
+    <table id="results">
+        <thead>
+            <tr>
+                <th>Generation</th>
+                <th>Time</th>
+                <th>Fitness</th>
+                <th>Solution</th>
+                <th>Target</th>
+            </tr>
+        </thead>
+        <tbody style="font-family: monospace;">
+        </tbody>
+    </table>
+</body>
+
+<script src="/exploder/draw.js"> </script>
+<script src="/exploder/game_of_life.js"> </script>
+<script src="./node_modules/genetic-js/lib/genetic.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="/exploder/genetic.js"> </script>
+<script src="/exploder/index.js"> </script>
+
+<script>
+    $(document).ready(function () {
+        let run_trigger = false;
+        let counter = 0;
+        let time = Date.now();
+        let interval = 500;
+        let target = {};
+        //     { x: 50, y: 30 },{ x: 40, y: 30 },{ x: 60, y: 30 },{ x: 30, y: 30 },
+        //     { x: 70, y: 30 },{ y: 50, x: 30 },{ y: 40, x: 30 },{ y: 60, x: 30 },
+        //     { y: 30, x: 30 },{ y: 70, x: 30 }];
+        let gol = new Game_of_life();
+        let canvas = new myCanvas();
+
+        setInterval(function () {
+            if (run_trigger && counter < 100) {
+                canvas.clear();
+                gol.update();
+                canvas.draw(gol.bomb_locations, 'yellow');
+                canvas.draw(target, 'green')
+            } else {
+                canvas.clear();
+                canvas.draw(best, 'red');
+                canvas.draw(target, 'green');
+            }
+        }, 1000 / 30);
+
+        function getMousePosition(canvas, event) {
+            let rect = canvas.getBoundingClientRect();
+            let x = Math.round((event.clientX - rect.left - 5) / 10);
+            let y = Math.round((event.clientY - rect.top - 5) / 10);
+            return [x, y];
+        }
+
+        let canvasElem = document.querySelector("canvas");
+
+        canvasElem.addEventListener("mousedown", function (e) {
+            let coords = getMousePosition(canvasElem, e);
+            let x = coords[0];
+            let y = coords[1];
+            let key = x.toString() + '.' + y.toString();
+            if (target[key]) delete target[key];
+            else target[key] = { x: x, y: y };
+
+        });
+        $("#solve").click(function () {
+            genetic.isFinished = true;
+            $("#results tbody").html("");
+            var config = {
+                "iterations": 100
+                , "size": 30
+                , "crossover": 0.3
+                , "mutation": 0.3
+                , "skip": 1
+            };
+            var userData = {
+                "gol": gol,
+                "canvas": canvas,
+                "target": target,
+            };
+            genetic.evolve(config, userData);
+        });
+
+        $("#run").click(function () {
+            gol = new Game_of_life();
+            gol.init(best);
+            run_trigger = true;
+        });
+
+        $("#clear").click(function () {
+            run_trigger = false;
+            target = {};
+        });
+
+        $("#stop").click(function () {
+            run_trigger = false;
+        });
+
+    });
+</script>
+
+</html>

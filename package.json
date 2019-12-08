@@ -1,0 +1,20 @@
+{
+    "name": "Morph",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node --experimental-modules server.mjs",
+        "server": "PORT=8080 ENV=server nodemon --experimental-modules server.mjs",
+        "dev": "ENV=dev nodemon --experimental-modules server.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "babel": "^6.23.0",
+        "genetic-js": "^0.1.14"
+    },
+    "devDependencies": {},
+    "description": ""
+}
