@@ -5,6 +5,7 @@ canvas.height = 1000;
 context.fillStyle = 'black';
 context.fillRect(0,0,canvas.width,canvas.height);
 
+
 function myCanvas(){
     this.value = 0;
     this.draw = function(elements, image, size){

@@ -13,7 +13,8 @@
     "license": "ISC",
     "dependencies": {
         "babel": "^6.23.0",
-        "genetic-js": "^0.1.14"
+        "genetic-js": "^0.1.14",
+        "three.js": "^0.77.1"
     },
     "devDependencies": {},
     "description": ""
