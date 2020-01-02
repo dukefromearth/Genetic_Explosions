@@ -3,25 +3,23 @@ const context = canvas.getContext('2d');
 canvas.width = 1000;
 canvas.height = 1000;
 context.fillStyle = 'black';
-context.fillRect(0,0,canvas.width,canvas.height);
+context.fillRect(0, 0, canvas.width, canvas.height);
 
-
-function myCanvas(){
+function myCanvas() {
     this.value = 0;
-    this.draw = function(elements, image, size){
-        for (let id in elements){
+    this.draw = function (elements, image, size) {
+        for (let id in elements) {
             let e = elements[id];
             let img = document.getElementById(image);
-            context.drawImage(img, e.x*10 - size/2, e.y*10 - size/2, size, size )
-            // context.fillStyle = color;
-            // context.fillRect(e.x*10 - 1, e.y*10 - 1, 9,9);
+            context.drawImage(img, e.x * 10 - size / 2, e.y * 10 - size / 2, size, size);
         }
+        console.log('fuck you');
     }
-    this.clear = function() {
+    this.clear = function () {
         context.fillStyle = 'black';
-        context.fillRect(0,0,canvas.width,canvas.height);
+        context.fillRect(0, 0, canvas.width, canvas.height);
     }
-    this.update_val = function() {
+    this.update_val = function () {
         this.val
     }
 }

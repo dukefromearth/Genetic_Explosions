@@ -31,11 +31,6 @@
             margin-right: auto;
             display: block;
         }
-
-        #my {
-            zoom: 100%;
-        }
-
         img {
             display: none;
         }
@@ -73,10 +68,8 @@
 <script src="./node_modules/genetic-js/lib/genetic.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="/exploder/genetic.js"> </script>
-<script src="/exploder/index.js"> </script>
 
 <script>
-    document.body.style.zoom = "50%";
     $(document).ready(function () {
         let run_trigger = false;
         let counter = 0;
@@ -99,6 +92,10 @@
                 canvas.clear();
                 canvas.draw(target, 'target', 30);
                 canvas.draw(best, 'atom', 14);
+                context.font = "70px American Typewriter";
+                context.fillStyle = 'white';
+                context.fillText("Generation " + gen, 280,80);
+
             }
         }, 1000 / 30);
 
@@ -124,10 +121,10 @@
             genetic.isFinished = true;
             $("#results tbody").html("");
             var config = {
-                "iterations": 50
-                , "size": 30
-                , "crossover": 0.3
-                , "mutation": 0.3
+                "iterations": 30
+                , "size": 50
+                , "crossover": 1.0
+                , "mutation": 0.0
                 , "skip": 1
             };
             var userData = {
